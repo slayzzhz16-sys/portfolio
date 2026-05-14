@@ -1,18 +1,53 @@
 import { useLang } from "@/contexts/LangContext";
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { toast } from "sonner";
 
 const Contact = () => {
   const { t } = useLang();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const mailto = `mailto:imad.bmk.91@gmail.com?subject=${encodeURIComponent(`Message de ${name}`)}&body=${encodeURIComponent(`De: ${name}\nEmail: ${email}\n\n${message}`)}`;
-    window.location.href = mailto;
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      toast.error(t("Configuration EmailJS manquante.", "Missing EmailJS configuration."));
+      return;
+    }
+
+    setIsSending(true);
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: name,
+          from_email: email,
+          reply_to: email,
+          message,
+        },
+        { publicKey }
+      );
+
+      toast.success(t("Message envoyé, merci !", "Message sent, thank you!"));
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      toast.error(t("Impossible d'envoyer le message pour le moment.", "Unable to send the message right now."));
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -89,9 +124,10 @@ const Contact = () => {
           />
           <button
             type="submit"
-            className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-primary text-primary-foreground font-display font-bold text-sm uppercase tracking-wider hover:opacity-90 transition-opacity"
+            disabled={isSending}
+            className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-primary text-primary-foreground font-display font-bold text-sm uppercase tracking-wider hover:opacity-90 transition-opacity disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {t("Envoyer", "Send")} <ArrowRight className="w-4 h-4" />
+            {isSending ? t("Envoi...", "Sending...") : t("Envoyer", "Send")} <ArrowRight className="w-4 h-4" />
           </button>
         </motion.form>
 

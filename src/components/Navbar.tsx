@@ -4,6 +4,38 @@ import { motion } from "framer-motion";
 const Navbar = () => {
   const { lang, toggle, t } = useLang();
 
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    const headerOffset = 96;
+    const start = window.scrollY;
+    const end = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+    const distance = end - start;
+    const duration = 900;
+    const startTime = performance.now();
+
+    const easeInOutCubic = (progress: number) =>
+      progress < 0.5 ? 4 * progress ** 3 : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+    const animate = (time: number) => {
+      const elapsed = time - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      window.scrollTo(0, start + distance * easeInOutCubic(progress));
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        window.history.pushState(null, "", href);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  };
+
   const links = [
     { href: "#about", label: t("À propos", "About") },
     { href: "#projects", label: t("Projets", "Projects") },
@@ -28,6 +60,7 @@ const Navbar = () => {
           <a
             key={link.href}
             href={link.href}
+            onClick={(e) => scrollToSection(e, link.href)}
             className="text-sm font-body text-muted-foreground hover:text-primary transition-colors duration-300"
           >
             {link.label}

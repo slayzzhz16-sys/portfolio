@@ -1,6 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
-
+/* Premium editorials (si disponibles depuis Google Fonts / fallback sinon) */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Canela:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:wght@400;500;600;700&display=swap'); /* équivalent premium pour PP Editorial New */
 
 @tailwind base;
 @tailwind components;
@@ -48,10 +51,17 @@
     --glow-accent: 280 80% 60%;
     --surface-elevated: 0 0% 10%;
 
-    /* Titres serif éditorial (magazine/luxe) */
-    --font-display: 'Cormorant Garamond', serif;
-    /* Texte/labels sans-serif minimal */
-    --font-body: 'Space Grotesk', sans-serif;
+    /* Typographie globale */
+    --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    /* Variante (hiérarchie) */
+    --font-serif-2: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    /* Texte courant */
+    --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+
+
 
   }
 }
@@ -61,16 +71,39 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
     overflow-x: hidden;
+    text-rendering: geometricPrecision;
+    letter-spacing: 0.02em;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+    font-weight: 800;
+  }
+
+
+  h1 {
+    line-height: 1.0;
+  }
+  h2 {
+    line-height: 1.02;
+  }
+  h3 {
+    line-height: 1.08;
   }
 }
+
 
 @layer utilities {
   .text-gradient-primary {

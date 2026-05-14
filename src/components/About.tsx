@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import photoImad from "@/assets/photo-imad.jpg";
 
 const tools = [
-  "Figma", "Photoshop", "Illustrator", "Premiere Pro", "After Effects"
+  "Figma", "Photoshop", "Illustrator", "Premiere Pro", "InDesign"
 ];
 
 const About = () => {
@@ -140,8 +140,22 @@ const About = () => {
                   {t("Créateur Digital", "Digital Creator")} | {t("Étudiant MMI", "MMI Student")}
                 </p>
                 <div className="flex items-center gap-4">
-                  <a href="#" className="text-[10px] font-body text-[hsl(0,0%,45%)] hover:text-[hsl(220,60%,35%)] transition-colors uppercase tracking-wider">LinkedIn</a>
-                  <a href="#" className="text-[10px] font-body text-[hsl(0,0%,45%)] hover:text-[hsl(220,60%,35%)] transition-colors uppercase tracking-wider">Instagram</a>
+                  <a
+                    href="https://www.linkedin.com/in/imad-belmekki-3802753b0"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] font-body text-[hsl(0,0%,45%)] underline underline-offset-4 decoration-[hsl(0,0%,45%)] hover:text-[hsl(220,60%,35%)] hover:decoration-[hsl(220,60%,35%)] transition-colors uppercase tracking-wider"
+                  >
+                    LinkedIn
+                  </a>
+                  <a
+                    href="https://www.instagram.com/91.imadd/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] font-body text-[hsl(0,0%,45%)] underline underline-offset-4 decoration-[hsl(0,0%,45%)] hover:text-[hsl(220,60%,35%)] hover:decoration-[hsl(220,60%,35%)] transition-colors uppercase tracking-wider"
+                  >
+                    Instagram
+                  </a>
                 </div>
               </div>
 

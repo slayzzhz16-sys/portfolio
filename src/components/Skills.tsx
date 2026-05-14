@@ -32,10 +32,7 @@ const categories: SkillCategory[] = [
     titleFr: "Web",
     titleEn: "Web",
     color: "glow-accent",
-    skills: [
-      { name: "HTML/CSS", level: 75 },
-      { name: "JavaScript", level: 50 },
-    ],
+    skills: [{ name: "HTML/CSS", level: 75 }],
   },
   {
     titleFr: "Communication",

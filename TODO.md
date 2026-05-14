@@ -1,15 +1,21 @@
 # TODO
 
-## Premium portfolio transformation (React + Tailwind + Framer Motion)
+## Étape 1 — Typos luxe / magazine
+- [x] Mettre à jour `src/index.css` : import polices premium, tokens `--font-serif`/`--font-body`.
+- [x] Ajuster tailles/leading/letter-spacing sur titres (h1/h2/h3).
+- [ ] Harmoniser `ProjectsList` et `ProjectDetail` (hierarchie titres + labels).
 
-- [x] Mettre à jour `src/components/Projects.tsx` (version premium layout horizontales).
+## Étape 2 — Projets sans “card UI”
+- [x] Modifier `src/pages/ProjectsList.tsx` : supprimer overlays/bordures/rounded/padding UI, rendu galerie.
+- [ ] Retirer définitivement “UI container” dans `src/components/CategorySections.tsx` (cards/rounded/border/bg-card) pour la section principale.
+- [x] Ajuster `src/pages/ProjectDetail.tsx` : supprimer `border/rounded/padding` des liens prev/next.
 
-- [ ] Mettre à jour `src/components/Hero.tsx` : hero fullscreen premium + animation douce au scroll.
-- [x] Refaire `src/components/Projects.tsx` en sections par catégories (Graphisme/Audiovisuel/SAE) avec layout image+texte structuré.
+## Étape 3 — Espacements éditoriaux
+- [ ] Augmenter gaps/marges sur layouts projets (gaps + whitespace).
 
-- [ ] Mettre à jour `src/components/About.tsx` : layout image + texte, micro-animations, hiérarchie forte.
-- [ ] Mettre à jour `src/components/Skills.tsx` : remplacer les barres par badges modernes.
-- [ ] Mettre à jour `src/components/Contact.tsx` : section très simple et élégante.
-- [ ] Ajustements optionnels dans `src/index.css` pour spacing/typography.
-- [ ] Lancer `npm run dev` / `npm run build` et vérifier responsive.
+## Étape 4 — Nettoyage
+- [ ] Passer une recherche pour vérifier que plus aucun `bg-card`, `rounded-*`, `border-border/..` n’entoure les médias des projets.
+
+## Étape 5 — Test
+- [ ] Lancer `npm run dev` et vérifier sur desktop/mobile.
 

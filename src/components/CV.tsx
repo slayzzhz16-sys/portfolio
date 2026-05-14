@@ -128,7 +128,7 @@ const CV = () => {
               </h3>
             </div>
             <div className="flex flex-wrap gap-2">
-              {["Illustrator", "InDesign", "Photoshop", "Premiere Pro", "HTML/CSS", "JavaScript", "PHP", "Figma"].map((skill) => (
+              {["Illustrator", "InDesign", "Photoshop", "Premiere Pro", "HTML/CSS", "Figma"].map((skill) => (
                 <span key={skill} className="px-3 py-1.5 rounded-full border border-border bg-surface-elevated text-xs font-body text-foreground">
                   {skill}
                 </span>

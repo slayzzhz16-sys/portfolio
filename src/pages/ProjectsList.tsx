@@ -26,19 +26,19 @@ const ListInner = () => {
   const filtered = active === "all" ? projects : projects.filter((p) => p.category === active);
 
   return (
-    <div className="min-h-screen bg-background bg-noise">
+    <div className="min-h-screen bg-background">
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between section-padding !py-4 md:!py-6 backdrop-blur-xl bg-background/60 border-b border-border/50"
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between section-padding !py-4 md:!py-6 backdrop-blur-xl bg-background/60"
       >
         <Link to="/" className="font-display text-xl font-bold text-gradient-primary">
           Imad<span className="text-foreground">.</span>B
         </Link>
         <button
           onClick={toggle}
-          className="px-3 py-1.5 rounded-full border border-primary/50 text-sm font-body font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+          className="px-3 py-1.5 rounded-full text-sm font-body font-medium text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300"
         >
           {lang === "fr" ? "EN" : "FR"}
         </button>
@@ -80,10 +80,10 @@ const ListInner = () => {
               <button
                 key={c}
                 onClick={() => setActive(c)}
-                className={`px-4 py-2 rounded-full text-xs md:text-sm font-body uppercase tracking-wider transition-all duration-300 border ${
+                className={`px-4 py-2 rounded-full text-xs md:text-sm font-body uppercase tracking-wider transition-all duration-300 ${
                   active === c
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "border-border/50 text-muted-foreground hover:border-primary/50 hover:text-foreground"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {c === "all" ? t("Tous", "All") : c}
@@ -92,7 +92,7 @@ const ListInner = () => {
           </div>
 
           {/* Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14 md:gap-y-20">
             {filtered.map((p, i) => (
               <motion.div
                 key={p.slug}
@@ -100,31 +100,39 @@ const ListInner = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: i * 0.06 }}
               >
-                <Link to={`/projet/${p.slug}`} className="block">
-              <div className="aspect-[4/5]">
-                    {p.media[0]?.type === "video" ? (
-                      <video
-                        src={p.media[0].src}
-                        muted
-                        loop
-                        playsInline
-                        autoPlay
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <img
-                        src={p.cover}
-                        alt={t(p.titleFr, p.titleEn)}
-                        className="w-full h-full object-cover object-top transition-transform duration-700"
-                      />
-                    )}
+                {/* Galerie/Editorial : image posée directement (sans card/box) */}
+                <Link
+                  to={`/projet/${p.slug}`}
+                  className="block rounded-3xl overflow-hidden shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
+                >
+                  <div className="flex flex-col">
+                    <div className="aspect-[4/5]">
+                      {p.media[0]?.type === "video" ? (
+                        <video
+                          src={p.media[0].src}
+                          muted
+                          loop
+                          playsInline
+                          autoPlay
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <img
+                          src={p.cover}
+                          alt={t(p.titleFr, p.titleEn)}
+                          className="w-full h-full object-cover object-top"
+                        />
+                      )}
+                    </div>
 
-                    <div className="p-5 pointer-events-none">
-                      <span className="inline-block text-[10px] md:text-xs font-body uppercase tracking-[0.2em] text-primary mb-2">
+
+                    <div className="mt-4 md:mt-6 pointer-events-none">
+                      <span className="inline-block text-[10px] md:text-xs font-body uppercase tracking-[0.28em] text-foreground/70">
                         {p.category}
                         {p.subCategory ? ` · ${p.subCategory}` : ""}
                       </span>
-                      <h3 className="font-display font-bold text-xl md:text-2xl text-foreground leading-tight">
+
+                      <h3 className="mt-3 font-serif-2 font-extrabold text-2xl md:text-3xl lg:text-4xl text-foreground leading-[0.95]">
                         {t(p.titleFr, p.titleEn)}
                       </h3>
                     </div>
