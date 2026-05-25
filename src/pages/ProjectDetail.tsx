@@ -224,6 +224,7 @@ const DetailInner = ({ slug }: { slug: string }) => {
                     {m.type === "video" ? (
                       <video
                         src={m.src}
+                        poster={project.cover || undefined}
                         controls
                         playsInline
                         className="w-full h-auto bg-black"

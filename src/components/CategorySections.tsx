@@ -142,6 +142,7 @@ const ProjectEditorialRow = ({
             {hasVideo && media?.type === "video" ? (
               <video
                 src={media.src}
+                poster={project.cover || undefined}
                 controls
                 playsInline
                 preload="metadata"

@@ -107,7 +107,7 @@ const ListInner = () => {
                 >
                   <div className="flex flex-col">
                     <div className="aspect-[4/5]">
-                      {p.media[0]?.type === "video" ? (
+                      {p.media[0]?.type === "video" && !p.cover ? (
                         <video
                           src={p.media[0].src}
                           muted

@@ -16,7 +16,7 @@ export interface Project {
   descFr: string;
   descEn: string;
   tools: Tool[];
-  cover: string; // image used in list grid
+  cover: string; // image used in list grid and video poster
   media: { type: "image" | "video"; src: string; alt?: string }[];
 }
 
@@ -87,8 +87,21 @@ export const projects: Project[] = [
     descEn:
       "A short stop motion film made frame by frame. I worked on staging, rhythm, and editing to bring a simple idea to life with limited resources.",
     tools: ["Pr"],
-    cover: afficheEauVerte, // placeholder visual fallback; video drives detail page
+    cover: "/projects/stop-motion-cover.png",
     media: [{ type: "video", src: "/projects/stop-motion.mp4" }],
+  },
+  {
+    slug: "clip-video-is-it-a-crime",
+    category: "Audiovisuel",
+    titleFr: "Clip vidéo — Is It A Crime",
+    titleEn: "Music Video — Is It A Crime",
+    descFr:
+      "Un clip vidéo travaillé avec une esthétique VHS. J'ai construit l'ambiance visuelle, le rythme et les effets pour donner au morceau une atmosphère plus cinématographique.",
+    descEn:
+      "A music video built around a VHS aesthetic. I shaped the visual mood, rhythm, and effects to give the track a more cinematic atmosphere.",
+    tools: ["Ae", "Pr"],
+    cover: "/projects/is-it-a-crime-cover.png",
+    media: [{ type: "video", src: "/projects/is-it-a-crime-web.m4v" }],
   },
   {
     slug: "calorea",
