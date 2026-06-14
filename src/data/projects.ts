@@ -120,7 +120,7 @@ export const projects: Project[] = [
   {
     slug: "calorea",
     category: "SAE",
-    titleFr: "Caloréa — Identité de marque & Communication",
+    titleFr: "CALORÉA- Création d'une association",
     titleEn: "Caloréa — Brand Identity & Communication",
     descFr:
       "Un projet de groupe autour d'une association fictive liée à la nutrition. On a construit l'identité de Caloréa, de la charte graphique jusqu'au site et au packaging, avec une organisation suivie sur planning.",
