@@ -137,9 +137,9 @@ export const projects: Project[] = [
     titleFr: "Branding festival",
     titleEn: "Festival Branding",
     descFr:
-      "Projet en cours de réalisation autour de l'identité visuelle d'un festival.",
+      "Création de l'identité visuelle de Beychella, un festival fictif pensé autour d'un univers graphique solaire, musical et immersif, décliné sur supports imprimés et digitaux.",
     descEn:
-      "Work in progress project focused on the visual identity of a festival.",
+      "Creation of Beychella's visual identity, a fictional festival built around a sunny, musical and immersive graphic universe, adapted across print and digital materials.",
     tools: ["Ps", "Ai", "Id"],
     cover: festivalBeychellaCover,
     media: [{ type: "image", src: festivalBeychellaCover, alt: "Festival Beychella" }],
