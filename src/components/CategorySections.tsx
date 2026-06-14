@@ -3,13 +3,6 @@ import { Link } from "react-router-dom";
 
 import { Project, toolLabels } from "@/data/projects";
 import { useLang } from "@/contexts/LangContext";
-import caloreaFlyer from "@/assets/projects/calorea-flyer.jpg";
-import caloreaIcon from "@/assets/projects/calorea-logo.png";
-import caloreaLogoFull from "@/assets/projects/calorea-logo-full.png";
-import caloreaLogo from "@/assets/projects/calorea-logo.jpg";
-import caloreaPublicite from "@/assets/projects/calorea-publicite.mp4";
-import caloreaPublicitePoster from "@/assets/projects/calorea-publicite-poster.jpg";
-import caloreaSite from "@/assets/projects/calorea-site.png";
 
 const toolToLabel = (tool: Project["tools"][number]) => toolLabels[tool] ?? tool;
 
@@ -42,90 +35,17 @@ const ProjectEditorialRow = ({
 
   const media = project.media[0];
   const hasVideo = project.media.some((m) => m.type === "video");
-  const isCaloreaProject = project.slug === "calorea";
-  const isInProgressProject = project.slug === "biere-fictive";
-  const caloreaPreviewItems = [
-    {
-      label: t("Logo & icône", "Logo & icon"),
-      images: [caloreaLogoFull, caloreaLogo, caloreaIcon],
-      alt: "Logo Caloréa",
-    },
-    {
-      label: t("Charte graphique", "Brand guidelines"),
-      image: project.cover,
-      alt: "Charte graphique Caloréa",
-    },
-    {
-      label: t("Site web", "Website"),
-      image: caloreaSite,
-      alt: "Site web Caloréa",
-    },
-    {
-      label: t("Flyer", "Flyer"),
-      image: caloreaFlyer,
-      alt: "Flyer Caloréa",
-    },
-    {
-      label: t("Vidéo publicitaire", "Advertising video"),
-      video: caloreaPublicite,
-      poster: caloreaPublicitePoster,
-    },
-  ];
+  const isInProgress = project.inProgress || (!project.cover && project.media.length === 0);
+  const categoryLabel =
+    project.category === "SAE" ? t("Projet universitaire", "University project") : project.category;
 
   const leftCol = (
     <div className="min-h-[320px]">
-      {isInProgressProject ? (
-        <div className="flex h-full min-h-[320px] items-center justify-center lg:min-h-[420px]">
+      {isInProgress ? (
+        <div className="flex h-full min-h-[320px] items-center justify-center rounded-3xl border border-border/30 bg-card/40 lg:min-h-[420px]">
           <span className="inline-flex items-center rounded-full border border-amber-400/30 bg-amber-500/15 px-5 py-2 font-body text-xs uppercase tracking-[0.22em] text-amber-200 md:text-sm">
             {t("En cours de réalisation", "In progress")}
           </span>
-        </div>
-      ) : isCaloreaProject ? (
-        <div className="grid min-h-[420px] grid-cols-2 gap-3">
-          {caloreaPreviewItems.map((item) => (
-            <div
-              key={item.label}
-              className="group/item overflow-hidden rounded-lg border border-border/30 bg-card/40"
-            >
-              <div className="relative aspect-[4/3] bg-white">
-                {"video" in item ? (
-                  <video
-                    src={item.video}
-                    poster={item.poster}
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    className="h-full w-full object-cover"
-                  />
-                ) : "images" in item ? (
-                  <div className="flex h-full w-full items-center justify-center gap-5 p-5">
-                    {item.images.map((image, index) => (
-                      <img
-                        key={image}
-                        src={image}
-                        alt={index === 0 ? "Logo Caloréa" : "Icône Caloréa"}
-                        className="max-h-full min-w-0 flex-1 object-contain transition-transform duration-500 group-hover/item:scale-[1.03]"
-                        loading="lazy"
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <img
-                    src={item.image}
-                    alt={item.alt}
-                    className="h-full w-full object-contain transition-transform duration-500 group-hover/item:scale-[1.03]"
-                    loading="lazy"
-                  />
-                )}
-              </div>
-              <div className="border-t border-border/25 px-4 py-3">
-                <p className="font-body text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                  {item.label}
-                </p>
-              </div>
-            </div>
-          ))}
         </div>
       ) : (
         <div className="relative w-full overflow-hidden rounded-3xl border border-border/30 bg-card/40">
@@ -158,7 +78,6 @@ const ProjectEditorialRow = ({
             )}
           </div>
 
-
           {/* subtle tech corner pills */}
           <div className="absolute top-5 left-5 right-5 flex flex-wrap gap-2 px-1">
             {project.tools.slice(0, 3).map((tool) => (
@@ -178,7 +97,7 @@ const ProjectEditorialRow = ({
   const year = variant === "graphisme" ? "2026" : variant === "audiovisuel" ? "2026" : "2026";
   const role =
     variant === "graphisme"
-      ? t("Rôle", "Role")
+      ? t("Conception", "Design")
       : variant === "audiovisuel"
         ? t("Réalisation", "Direction")
         : t("Conception", "Design");
@@ -187,11 +106,9 @@ const ProjectEditorialRow = ({
     <div className="lg:pl-10 xl:pl-14">
       <div className="flex flex-col justify-center h-full">
         <p className="text-muted-foreground font-body text-xs md:text-sm uppercase tracking-[0.25em]">
-          {project.category}
+          {categoryLabel}
           {project.subCategory ? ` · ${project.subCategory}` : ""}
         </p>
-
-
 
         <h3 className="mt-5 font-display font-extrabold text-3xl md:text-4xl leading-tight text-foreground">
           {t(project.titleFr, project.titleEn)}
@@ -231,6 +148,12 @@ const ProjectEditorialRow = ({
             <p className="mt-2 text-sm text-muted-foreground font-body">{role}</p>
           </div>
         </div>
+
+        {variant === "sae" && (
+          <span className="mt-8 inline-flex w-fit items-center rounded-full border border-primary/45 px-5 py-2 font-body text-xs uppercase tracking-[0.22em] text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+            {t("Voir plus", "View more")}
+          </span>
+        )}
       </div>
     </div>
   );
@@ -272,8 +195,6 @@ export const CategorySections = ({
   audio: Project[];
   sae: Project[];
 }) => {
-  const { t } = useLang();
-
   return (
     <div className="space-y-24">
       <section>
@@ -300,9 +221,7 @@ export const CategorySections = ({
       </section>
 
       <section>
-        <SectionTitle
-          eyebrow="SAE / PROJET UNIVERSITAIRE"
-        />
+        <SectionTitle eyebrow="PROJET UNIVERSITAIRE" />
         <div className="space-y-16">
           {sae.map((p, idx) => (
             <ProjectEditorialRow

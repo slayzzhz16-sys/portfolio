@@ -18,7 +18,11 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-sm md:text-base font-body tracking-[0.3em] uppercase text-primary mb-6"
         >
-          Imad Belmekki — {t("Étudiant en BUT MMI", "BUT MMI Student")}
+          Imad Belmekki —{" "}
+          {t(
+            "Étudiant en BUT Métiers du Multimédia et de l'Internet",
+            "Student in Multimedia and Internet Professions"
+          )}
         </motion.p>
 
         <motion.h1

@@ -2,7 +2,14 @@ import afficheVoyage from "@/assets/projects/affiche-voyage-dubai.jpg";
 import autoPortrait from "@/assets/projects/auto-portrait-illustrator.jpg";
 import afficheBeyonce from "@/assets/projects/affiche-beyonce.jpg";
 import afficheEauVerte from "@/assets/projects/affiche-eau-verte.jpg";
+import caloreaCover from "@/assets/projects/calorea-cover.jpg";
 import caloreaCharte from "@/assets/projects/calorea-charte.png";
+import skollrubAffiche from "@/assets/projects/skollrub/skollrub-affiche-promo-web.jpg";
+import skollrubAngerbodaPost from "@/assets/projects/skollrub/skollrub-angerboda-post-1-web.jpg";
+import skollrubCerisicidePost from "@/assets/projects/skollrub/skollrub-cerisicide-post-1-web.jpg";
+import skollrubCharte from "@/assets/projects/skollrub/skollrub-charte.jpg";
+import skollrubFreyaPost from "@/assets/projects/skollrub/skollrub-freya-post-1-web.jpg";
+import skollrubOriginalPost from "@/assets/projects/skollrub/skollrub-original-post-1-web.jpg";
 
 export type Category = "Graphisme" | "Audiovisuel" | "SAE";
 export type Tool = "Ps" | "Ai" | "Id" | "Pr" | "Ae" | "Figma";
@@ -18,6 +25,8 @@ export interface Project {
   tools: Tool[];
   cover: string; // image used in list grid and video poster
   media: { type: "image" | "video"; src: string; alt?: string }[];
+  websiteUrl?: string;
+  inProgress?: boolean;
 }
 
 export const projects: Project[] = [
@@ -113,21 +122,43 @@ export const projects: Project[] = [
     descEn:
       "A group project for a fictional association connected to nutrition. We built Caloréa's identity, from the brand guidelines to the website and packaging, while following a planned workflow.",
     tools: ["Ai", "Ps", "Pr"],
-    cover: caloreaCharte,
+    cover: caloreaCover,
     media: [{ type: "image", src: caloreaCharte, alt: "Charte Caloréa" }],
+  },
+  {
+    slug: "branding-festival",
+    category: "SAE",
+    titleFr: "Branding festival",
+    titleEn: "Festival Branding",
+    descFr:
+      "Projet en cours de réalisation autour de l'identité visuelle d'un festival.",
+    descEn:
+      "Work in progress project focused on the visual identity of a festival.",
+    tools: ["Ps", "Ai", "Id"],
+    cover: "",
+    media: [],
+    inProgress: true,
   },
   {
     slug: "biere-fictive",
     category: "SAE",
-    titleFr: "Marque de Bière Fictive",
-    titleEn: "Fictional Beer Brand",
+    titleFr: "Skollrub — Création d'une marque de bière",
+    titleEn: "Skollrub — Beer Brand Creation",
     descFr:
-      "Un projet en cours autour d'une marque de bière fictive. Je travaille sur l'univers de marque, le packaging et les supports de communication pour créer quelque chose de cohérent et identifiable.",
+      "Création d'une marque de bière artisanale inspirée des mythes nordiques : identité visuelle, charte graphique, posts réseaux sociaux, affiche promotionnelle, vidéo publicitaire et site web.",
     descEn:
-      "An ongoing project for a fictional beer brand. I'm working on the brand universe, packaging, and communication assets to create something coherent and recognizable.",
-    tools: ["Ai", "Ps"],
-    cover: "",
-    media: [],
+      "Creation of a craft beer brand inspired by Nordic myths: visual identity, brand guidelines, social media posts, promotional poster, advertising video, and website.",
+    tools: ["Ai", "Ps", "Pr"],
+    cover: skollrubCharte,
+    media: [
+      { type: "image", src: skollrubCharte, alt: "Charte graphique Skollrub" },
+      { type: "image", src: skollrubOriginalPost, alt: "Post Skollrub Original" },
+      { type: "image", src: skollrubAngerbodaPost, alt: "Post Skollrub Angerboda" },
+      { type: "image", src: skollrubCerisicidePost, alt: "Post Skollrub Cerisicide" },
+      { type: "image", src: skollrubFreyaPost, alt: "Post Skollrub Freya" },
+      { type: "image", src: skollrubAffiche, alt: "Affiche promotionnelle Skollrub" },
+    ],
+    websiteUrl: "https://skollrub.but1.mmi-iutsf.org",
   },
 
 ];

@@ -11,6 +11,12 @@ import caloreaFlyer from "@/assets/projects/calorea-flyer.jpg";
 import caloreaPublicite from "@/assets/projects/calorea-publicite.mp4";
 import caloreaPublicitePoster from "@/assets/projects/calorea-publicite-poster.jpg";
 import caloreaSite from "@/assets/projects/calorea-site.png";
+import skollrubBottle from "@/assets/projects/skollrub/skollrub-bouteille.png";
+import skollrubLogoSite from "@/assets/projects/skollrub/skollrub-logo-site.png";
+import skollrubLabelAngerboda from "@/assets/projects/skollrub/skollrub-label-angerboda.png";
+import skollrubLabelCerisicide from "@/assets/projects/skollrub/skollrub-label-cerisicide.png";
+import skollrubLabelFreya from "@/assets/projects/skollrub/skollrub-label-jaune.png";
+import skollrubLabelOriginal from "@/assets/projects/skollrub/skollrub-label-rose.png";
 
 const caloreaWebsiteUrl = "https://but1.mmi-iutsf.org/S1/2026_S1/groupe_d/Acceuil.html";
 
@@ -22,6 +28,35 @@ const DetailInner = ({ slug }: { slug: string }) => {
   const prev = projects[(idx - 1 + projects.length) % projects.length];
   const next = projects[(idx + 1) % projects.length];
   const isCalorea = project.slug === "calorea";
+  const isSkollrub = project.slug === "biere-fictive";
+  const skollrubLabels = [
+    {
+      titleFr: "L'Original",
+      titleEn: "L'Original",
+      image: skollrubLabelOriginal,
+      alt: "Étiquette de bouteille Skollrub L'Original",
+    },
+    {
+      titleFr: "L'Angerboda",
+      titleEn: "L'Angerboda",
+      image: skollrubLabelAngerboda,
+      alt: "Étiquette de bouteille Skollrub L'Angerboda",
+    },
+    {
+      titleFr: "La Freya",
+      titleEn: "La Freya",
+      image: skollrubLabelFreya,
+      alt: "Étiquette de bouteille Skollrub La Freya",
+    },
+    {
+      titleFr: "La Cerisicide",
+      titleEn: "La Cerisicide",
+      image: skollrubLabelCerisicide,
+      alt: "Étiquette de bouteille Skollrub La Cerisicide",
+    },
+  ];
+  const categoryLabel =
+    project.category === "SAE" ? t("Projet universitaire", "University project") : project.category;
   const caloreaSections = [
     {
       titleFr: "Logo & icône",
@@ -74,8 +109,8 @@ const DetailInner = ({ slug }: { slug: string }) => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between section-padding !py-4 md:!py-6 backdrop-blur-xl bg-background/60 border-b border-border/50"
       >
-        <Link to="/" className="font-display text-xl font-bold text-gradient-primary">
-          Imad<span className="text-foreground">.</span>B
+        <Link to="/" className="font-display text-xl font-bold text-white">
+          Imad<span className="text-white">.</span><span className="text-gradient-primary">B</span>
         </Link>
         <button
           onClick={toggle}
@@ -104,14 +139,26 @@ const DetailInner = ({ slug }: { slug: string }) => {
           >
             <div className="flex items-center gap-4 flex-wrap">
               <p className="text-primary font-body text-xs md:text-sm tracking-[0.3em] uppercase">
-                {project.category}
+                {categoryLabel}
                 {project.subCategory ? ` · ${project.subCategory}` : ""}
               </p>
 
               {/* Status badge */}
-              {project.slug === "biere-fictive" && (
-                <span className="inline-flex items-center rounded-full bg-amber-500/15 text-amber-200 border border-amber-400/30 px-3 py-1 text-[11px] md:text-xs font-body uppercase tracking-wider">
-                  {lang === "fr" ? "EN COURS" : "IN PROGRESS"}
+              {project.websiteUrl && (
+                <a
+                  href={project.websiteUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-3 py-1 text-[11px] font-body uppercase tracking-wider text-primary transition-colors hover:bg-primary hover:text-primary-foreground md:text-xs"
+                >
+                  {t("Voir le site", "View website")}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              )}
+
+              {project.inProgress && (
+                <span className="inline-flex items-center rounded-full border border-amber-400/30 bg-amber-500/15 px-3 py-1 text-[11px] font-body uppercase tracking-wider text-amber-200 md:text-xs">
+                  {t("En cours", "In progress")}
                 </span>
               )}
             </div>
@@ -203,14 +250,238 @@ const DetailInner = ({ slug }: { slug: string }) => {
                 </motion.article>
               ))}
             </div>
+          ) : isSkollrub ? (
+            <div className="grid gap-8 md:grid-cols-2">
+              <motion.article
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className="overflow-hidden rounded-lg border border-border/30 bg-card/35 md:col-span-2"
+              >
+                <div className="bg-white">
+                  <img
+                    src={project.media[0]?.src}
+                    alt={project.media[0]?.alt ?? "Charte graphique Skollrub"}
+                    className="h-auto w-full object-contain"
+                  />
+                </div>
+                <div className="p-5 md:p-6">
+                  <p className="font-display text-xl font-extrabold text-foreground">
+                    {t("Charte graphique", "Brand Guidelines")}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {t(
+                      "L'identité Skollrub rassemble logo, palette, typographies, symboles nordiques et règles visuelles de la marque.",
+                      "Skollrub's identity brings together the logo, color palette, typography, Nordic symbols, and visual rules for the brand."
+                    )}
+                  </p>
+                </div>
+              </motion.article>
+
+              <motion.article
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.05 }}
+                className="overflow-hidden rounded-lg border border-border/30 bg-card/35 md:col-span-2"
+              >
+                <div className="grid gap-px bg-border/20 sm:grid-cols-2">
+                  {skollrubLabels.map((label) => (
+                    <div key={label.image} className="bg-white p-4 md:p-6">
+                      <img
+                        src={label.image}
+                        alt={label.alt}
+                        className="h-full max-h-[440px] w-full object-contain"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="p-5 md:p-6">
+                  <p className="font-display text-xl font-extrabold text-foreground">
+                    {t("Étiquettes de bouteilles", "Bottle Labels")}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {t(
+                      "Les étiquettes prolongent l'univers mythologique de Skollrub avec une histoire, les ingrédients et les informations produit de chaque bière.",
+                      "The labels extend Skollrub's mythological universe with a story, ingredients, and product details for each beer."
+                    )}
+                  </p>
+                </div>
+              </motion.article>
+
+              <motion.article
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="overflow-hidden rounded-lg border border-border/30 bg-card/35"
+              >
+                <div className="grid grid-cols-2 bg-white">
+                  {project.media.slice(1, 5).map((item) => (
+                    <img
+                      key={item.src}
+                      src={item.src}
+                      alt={item.alt ?? "Post réseaux sociaux Skollrub"}
+                      className="aspect-[4/5] h-full w-full object-cover"
+                    />
+                  ))}
+                </div>
+                <div className="p-5 md:p-6">
+                  <p className="font-display text-xl font-extrabold text-foreground">
+                    {t("Posts réseaux sociaux", "Social Media Posts")}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {t(
+                      "Une série de visuels produits pour présenter les déclinaisons de la marque sur Instagram.",
+                      "A set of product visuals designed to present the brand variations on Instagram."
+                    )}
+                  </p>
+                </div>
+              </motion.article>
+
+              <motion.article
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="overflow-hidden rounded-lg border border-border/30 bg-card/35"
+              >
+                <div className="aspect-[3/4] bg-white">
+                  <img
+                    src={project.media[5]?.src}
+                    alt={project.media[5]?.alt ?? "Affiche promotionnelle Skollrub"}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+                <div className="p-5 md:p-6">
+                  <p className="font-display text-xl font-extrabold text-foreground">
+                    {t("Affiche promotionnelle", "Promotional Poster")}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {t(
+                      "Une affiche pensée comme support de campagne, avec le produit, la signature et l'univers visuel Skollrub.",
+                      "A campaign poster built around the product, tagline, and Skollrub visual universe."
+                    )}
+                  </p>
+                </div>
+              </motion.article>
+
+              {project.media[6]?.type === "video" && (
+                <motion.article
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="overflow-hidden rounded-lg border border-border/30 bg-card/35 md:col-span-2"
+                >
+                  <video
+                    src={project.media[6].src}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    className="w-full bg-black"
+                  />
+                  <div className="p-5 md:p-6">
+                    <p className="font-display text-xl font-extrabold text-foreground">
+                      {t("Vidéo publicitaire", "Advertising Video")}
+                    </p>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      {t(
+                        "Une vidéo de campagne qui prolonge l'univers nordique et mystique de la marque.",
+                        "A campaign video extending the Nordic and mystical universe of the brand."
+                      )}
+                    </p>
+                  </div>
+                </motion.article>
+              )}
+
+              <motion.article
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.25 }}
+                className="overflow-hidden rounded-lg border border-border/30 bg-card/35 md:col-span-2"
+              >
+                <a
+                  href={project.websiteUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group block"
+                >
+                  <div className="relative min-h-[360px] overflow-hidden bg-[#06090a] p-6 sm:p-8 md:min-h-[470px]">
+                    <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
+                    <div className="relative z-10 flex items-center justify-between gap-6 border-b border-white/10 pb-6">
+                      <img
+                        src={skollrubLogoSite}
+                        alt="Logo Skollrub"
+                        className="h-12 w-auto object-contain sm:h-16"
+                      />
+                      <div className="hidden items-center gap-8 font-serif-2 text-sm italic text-white/80 md:flex">
+                        <span>Nos bières</span>
+                        <span>Brassage</span>
+                        <span>Notre Histoire</span>
+                        <span>Notre Équipe</span>
+                      </div>
+                      <ExternalLink className="h-5 w-5 text-white/80 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </div>
+
+                    <div className="relative z-10 grid min-h-[300px] items-center gap-8 md:grid-cols-[0.95fr_1.05fr]">
+                      <div>
+                        <p className="font-display text-5xl font-extrabold leading-tight text-[#b8173f] sm:text-6xl lg:text-7xl">
+                          Bienvenue<br />chez<br />Skollrub
+                        </p>
+                        <p className="mt-10 max-w-md font-serif-2 text-lg italic leading-relaxed text-white/70">
+                          Découvrez nos bières artisanales et notre passion pour le brassage.
+                        </p>
+                      </div>
+                      <div className="relative flex min-h-[260px] items-center justify-center">
+                        <div className="absolute h-72 w-72 rounded-full bg-[#b8173f]/20 blur-3xl" />
+                        <img
+                          src={skollrubBottle}
+                          alt="Bouteille Skollrub"
+                          className="relative max-h-[340px] w-auto rotate-[24deg] object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <div className="p-5 md:p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-display text-xl font-extrabold text-foreground">
+                        {t("Site web", "Website")}
+                      </p>
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                        {t(
+                          "Le site présente l'univers Skollrub, les bières, le brassage, l'histoire de la marque et l'équipe.",
+                          "The website presents the Skollrub universe, beers, brewing process, brand story, and team."
+                        )}
+                      </p>
+                    </div>
+                    {project.websiteUrl && (
+                      <a
+                        href={project.websiteUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={t("Ouvrir le site Skollrub", "Open Skollrub website")}
+                        className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-primary/40 text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.article>
+            </div>
           ) : (
             <div className="space-y-6 md:space-y-10">
               {project.media.length === 0 ? (
-              <div className="aspect-[16/10] flex items-center justify-center">
-                <span className="font-display text-6xl font-bold text-muted-foreground/40">
-                  {project.titleFr.charAt(0)}
-                </span>
-              </div>
+                <div className="flex aspect-[16/10] items-center justify-center rounded-lg border border-border/25 bg-card/25">
+                  <span className="inline-flex items-center rounded-full border border-amber-400/30 bg-amber-500/15 px-5 py-2 font-body text-xs uppercase tracking-[0.22em] text-amber-200 md:text-sm">
+                    {t("En cours de réalisation", "In progress")}
+                  </span>
+                </div>
               ) : (
                 project.media.map((m, i) => (
                   <motion.div
@@ -219,7 +490,11 @@ const DetailInner = ({ slug }: { slug: string }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.6 }}
-                    className="overflow-visible relative"
+                    className={
+                      project.category === "Graphisme"
+                        ? "relative mx-auto flex max-w-4xl justify-center overflow-hidden rounded-lg border border-border/25 bg-card/25 p-3 md:p-5"
+                        : "overflow-visible relative"
+                    }
                   >
                     {m.type === "video" ? (
                       <video
@@ -233,7 +508,11 @@ const DetailInner = ({ slug }: { slug: string }) => {
                       <img
                         src={m.src}
                         alt={m.alt ?? t(project.titleFr, project.titleEn)}
-                        className="w-full h-auto object-contain select-none"
+                        className={
+                          project.category === "Graphisme"
+                            ? "max-h-[78vh] w-auto max-w-full object-contain select-none"
+                            : "w-full h-auto object-contain select-none"
+                        }
                       />
                     )}
                   </motion.div>

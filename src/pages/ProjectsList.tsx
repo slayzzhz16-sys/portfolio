@@ -24,6 +24,8 @@ const ListInner = () => {
   useEffect(() => setActive(initial), [initial]);
 
   const filtered = active === "all" ? projects : projects.filter((p) => p.category === active);
+  const categoryLabel = (category: Category) =>
+    category === "SAE" ? t("Projet universitaire", "University project") : category;
 
   return (
     <div className="min-h-screen bg-background">
@@ -33,8 +35,8 @@ const ListInner = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between section-padding !py-4 md:!py-6 backdrop-blur-xl bg-background/60"
       >
-        <Link to="/" className="font-display text-xl font-bold text-gradient-primary">
-          Imad<span className="text-foreground">.</span>B
+        <Link to="/" className="font-display text-xl font-bold text-white">
+          Imad<span className="text-white">.</span><span className="text-gradient-primary">B</span>
         </Link>
         <button
           onClick={toggle}
@@ -68,8 +70,8 @@ const ListInner = () => {
             </h1>
             <p className="text-muted-foreground font-body text-base md:text-lg max-w-2xl leading-relaxed">
               {t(
-                "Une sélection de projets de design graphique, audiovisuel et SAE.",
-                "A selection of graphic design, audiovisual and SAE projects."
+                "Une sélection de projets de design graphique, audiovisuel et universitaires.",
+                "A selection of graphic design, audiovisual, and university projects."
               )}
             </p>
           </motion.div>
@@ -86,7 +88,7 @@ const ListInner = () => {
                     : "text-muted-foreground hover:text-foreground"
                 }`}
               >
-                {c === "all" ? t("Tous", "All") : c}
+                {c === "all" ? t("Tous", "All") : categoryLabel(c)}
               </button>
             ))}
           </div>
@@ -107,7 +109,13 @@ const ListInner = () => {
                 >
                   <div className="flex flex-col">
                     <div className="aspect-[4/5]">
-                      {p.media[0]?.type === "video" && !p.cover ? (
+                      {p.inProgress || (!p.cover && p.media.length === 0) ? (
+                        <div className="flex h-full w-full items-center justify-center bg-card/50">
+                          <span className="rounded-full border border-amber-400/30 bg-amber-500/15 px-4 py-2 font-body text-[10px] uppercase tracking-[0.22em] text-amber-200">
+                            {t("En cours", "In progress")}
+                          </span>
+                        </div>
+                      ) : p.media[0]?.type === "video" && !p.cover ? (
                         <video
                           src={p.media[0].src}
                           muted
@@ -128,7 +136,7 @@ const ListInner = () => {
 
                     <div className="mt-4 md:mt-6 pointer-events-none">
                       <span className="inline-block text-[10px] md:text-xs font-body uppercase tracking-[0.28em] text-foreground/70">
-                        {p.category}
+                        {categoryLabel(p.category)}
                         {p.subCategory ? ` · ${p.subCategory}` : ""}
                       </span>
 
