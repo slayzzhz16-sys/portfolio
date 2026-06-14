@@ -4,6 +4,7 @@ import afficheBeyonce from "@/assets/projects/affiche-beyonce.jpg";
 import afficheEauVerte from "@/assets/projects/affiche-eau-verte.jpg";
 import caloreaCover from "@/assets/projects/calorea-cover.jpg";
 import caloreaCharte from "@/assets/projects/calorea-charte.png";
+import festivalBeychellaCover from "@/assets/projects/branding-festival/festival-beychella-cover.jpg";
 import festivalBeychellaPdf from "@/assets/projects/branding-festival/festival-beychella.pdf";
 import skollrubAffiche from "@/assets/projects/skollrub/skollrub-affiche-promo-web.jpg";
 import skollrubAngerbodaPost from "@/assets/projects/skollrub/skollrub-angerboda-post-1-web.jpg";
@@ -140,12 +141,11 @@ export const projects: Project[] = [
     descEn:
       "Work in progress project focused on the visual identity of a festival.",
     tools: ["Ps", "Ai", "Id"],
-    cover: "",
-    media: [],
+    cover: festivalBeychellaCover,
+    media: [{ type: "image", src: festivalBeychellaCover, alt: "Festival Beychella" }],
     documentUrl: festivalBeychellaPdf,
     documentLabelFr: "Voir le PDF",
     documentLabelEn: "View PDF",
-    inProgress: true,
   },
   {
     slug: "biere-fictive",

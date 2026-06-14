@@ -506,40 +506,58 @@ const DetailInner = ({ slug }: { slug: string }) => {
                   )}
                 </div>
               ) : (
-                project.media.map((m, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6 }}
-                    className={
-                      project.category === "Graphisme"
-                        ? "relative mx-auto flex max-w-4xl justify-center overflow-hidden rounded-lg border border-border/25 bg-card/25 p-3 md:p-5"
-                        : "overflow-visible relative"
-                    }
-                  >
-                    {m.type === "video" ? (
-                      <video
-                        src={m.src}
-                        poster={project.cover || undefined}
-                        controls
-                        playsInline
-                        className="w-full h-auto bg-black"
+                <>
+                  {(!project.documentUrl ? project.media : []).map((m, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.6 }}
+                      className={
+                        project.category === "Graphisme"
+                          ? "relative mx-auto flex max-w-4xl justify-center overflow-hidden rounded-lg border border-border/25 bg-card/25 p-3 md:p-5"
+                          : "overflow-visible relative"
+                      }
+                    >
+                      {m.type === "video" ? (
+                        <video
+                          src={m.src}
+                          poster={project.cover || undefined}
+                          controls
+                          playsInline
+                          className="w-full h-auto bg-black"
+                        />
+                      ) : (
+                        <img
+                          src={m.src}
+                          alt={m.alt ?? t(project.titleFr, project.titleEn)}
+                          className={
+                            project.category === "Graphisme"
+                              ? "max-h-[78vh] w-auto max-w-full object-contain select-none"
+                              : "w-full h-auto object-contain select-none"
+                          }
+                        />
+                      )}
+                    </motion.div>
+                  ))}
+
+                  {project.documentUrl && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-100px" }}
+                      transition={{ duration: 0.6 }}
+                      className="overflow-hidden rounded-lg border border-border/25 bg-card/25"
+                    >
+                      <iframe
+                        src={project.documentUrl}
+                        title={t(project.titleFr, project.titleEn)}
+                        className="h-[78vh] min-h-[520px] w-full bg-white"
                       />
-                    ) : (
-                      <img
-                        src={m.src}
-                        alt={m.alt ?? t(project.titleFr, project.titleEn)}
-                        className={
-                          project.category === "Graphisme"
-                            ? "max-h-[78vh] w-auto max-w-full object-contain select-none"
-                            : "w-full h-auto object-contain select-none"
-                        }
-                      />
-                    )}
-                  </motion.div>
-                ))
+                    </motion.div>
+                  )}
+                </>
               )}
             </div>
           )}
