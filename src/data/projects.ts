@@ -10,6 +10,7 @@ import skollrubCerisicidePost from "@/assets/projects/skollrub/skollrub-cerisici
 import skollrubCharte from "@/assets/projects/skollrub/skollrub-charte.jpg";
 import skollrubFreyaPost from "@/assets/projects/skollrub/skollrub-freya-post-1-web.jpg";
 import skollrubOriginalPost from "@/assets/projects/skollrub/skollrub-original-post-1-web.jpg";
+import skollrubVideoPub from "@/assets/projects/skollrub/skollrub-video-pub-web.mp4";
 
 export type Category = "Graphisme" | "Audiovisuel" | "SAE";
 export type Tool = "Ps" | "Ai" | "Id" | "Pr" | "Ae" | "Figma";
@@ -157,6 +158,7 @@ export const projects: Project[] = [
       { type: "image", src: skollrubCerisicidePost, alt: "Post Skollrub Cerisicide" },
       { type: "image", src: skollrubFreyaPost, alt: "Post Skollrub Freya" },
       { type: "image", src: skollrubAffiche, alt: "Affiche promotionnelle Skollrub" },
+      { type: "video", src: skollrubVideoPub, alt: "Vidéo publicitaire Skollrub" },
     ],
     websiteUrl: "https://skollrub.but1.mmi-iutsf.org",
   },
