@@ -1,6 +1,6 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, ExternalLink } from "lucide-react";
+import { ArrowLeft, ArrowRight, ExternalLink, FileText } from "lucide-react";
 import { LangProvider, useLang } from "@/contexts/LangContext";
 import { projects, getProjectIndex } from "@/data/projects";
 import ToolBadge from "@/components/ToolBadge";
@@ -153,6 +153,18 @@ const DetailInner = ({ slug }: { slug: string }) => {
                 >
                   {t("Voir le site", "View website")}
                   <ExternalLink className="h-3 w-3" />
+                </a>
+              )}
+
+              {project.documentUrl && (
+                <a
+                  href={project.documentUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-3 py-1 text-[11px] font-body uppercase tracking-wider text-primary transition-colors hover:bg-primary hover:text-primary-foreground md:text-xs"
+                >
+                  {t(project.documentLabelFr ?? "Voir le document", project.documentLabelEn ?? "View document")}
+                  <FileText className="h-3 w-3" />
                 </a>
               )}
 
@@ -477,10 +489,21 @@ const DetailInner = ({ slug }: { slug: string }) => {
           ) : (
             <div className="space-y-6 md:space-y-10">
               {project.media.length === 0 ? (
-                <div className="flex aspect-[16/10] items-center justify-center rounded-lg border border-border/25 bg-card/25">
+                <div className="flex aspect-[16/10] flex-col items-center justify-center gap-5 rounded-lg border border-border/25 bg-card/25">
                   <span className="inline-flex items-center rounded-full border border-amber-400/30 bg-amber-500/15 px-5 py-2 font-body text-xs uppercase tracking-[0.22em] text-amber-200 md:text-sm">
                     {t("En cours de réalisation", "In progress")}
                   </span>
+                  {project.documentUrl && (
+                    <a
+                      href={project.documentUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-primary/45 px-5 py-2 font-body text-xs uppercase tracking-[0.22em] text-primary transition-colors hover:bg-primary hover:text-primary-foreground md:text-sm"
+                    >
+                      <FileText className="h-4 w-4" />
+                      {t(project.documentLabelFr ?? "Voir le document", project.documentLabelEn ?? "View document")}
+                    </a>
+                  )}
                 </div>
               ) : (
                 project.media.map((m, i) => (

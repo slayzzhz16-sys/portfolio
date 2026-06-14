@@ -4,6 +4,7 @@ import afficheBeyonce from "@/assets/projects/affiche-beyonce.jpg";
 import afficheEauVerte from "@/assets/projects/affiche-eau-verte.jpg";
 import caloreaCover from "@/assets/projects/calorea-cover.jpg";
 import caloreaCharte from "@/assets/projects/calorea-charte.png";
+import festivalBeychellaPdf from "@/assets/projects/branding-festival/festival-beychella.pdf";
 import skollrubAffiche from "@/assets/projects/skollrub/skollrub-affiche-promo-web.jpg";
 import skollrubAngerbodaPost from "@/assets/projects/skollrub/skollrub-angerboda-post-1-web.jpg";
 import skollrubCerisicidePost from "@/assets/projects/skollrub/skollrub-cerisicide-post-1-web.jpg";
@@ -27,6 +28,9 @@ export interface Project {
   cover: string; // image used in list grid and video poster
   media: { type: "image" | "video"; src: string; alt?: string }[];
   websiteUrl?: string;
+  documentUrl?: string;
+  documentLabelFr?: string;
+  documentLabelEn?: string;
   inProgress?: boolean;
 }
 
@@ -138,6 +142,9 @@ export const projects: Project[] = [
     tools: ["Ps", "Ai", "Id"],
     cover: "",
     media: [],
+    documentUrl: festivalBeychellaPdf,
+    documentLabelFr: "Voir le PDF",
+    documentLabelEn: "View PDF",
     inProgress: true,
   },
   {
